@@ -7,14 +7,24 @@ import (
 
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
+	"github.com/justmamadou/gopher-social/internal/store"
 )
 
 type application struct {
 	config config
+	store  store.Storage
 }
 
 type config struct {
 	addr string
+	db   dbConfig
+}
+
+type dbConfig struct {
+	addr        string
+	maxOpenConn int
+	maxIdleConn int
+	maxIdleTime string
 }
 
 func (app *application) mount() http.Handler {
